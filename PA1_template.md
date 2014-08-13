@@ -7,7 +7,11 @@ In this part we will transform the date column which is processed as a factor in
 
 
 ```r
-data <- read.table(unz("activity.zip","activity.csv"), sep=",", header=TRUE)
+temp <- tempfile() # Create a temp file to store the zip
+download.file("http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip",temp)
+data <- read.table(unz(temp,"activity.csv"),sep=",",header=TRUE)
+unlink(temp)
+rm(temp)
 data$date <- as.Date(data$date, format="%Y-%m-%d")
 ```
 
@@ -149,11 +153,15 @@ We subset two data frames from newData corresponding to weekends and weekdays ag
 
 
 ```r
-weekends <- aggregate(steps ~interval,subset(newData, newData$Weekday == "Weekend"), mean)
-weekdays <- aggregate(steps ~interval,subset(newData, newData$Weekday == "Weekday"), mean)
-par(mfrow=c(2,1))
-plot (weekends, type="l", ylab="Average number of steps", main="Weekends")
-plot (weekdays, type="l", ylab="Average number of steps", main="Weekdays")
+library(lattice, quietly=TRUE, warn.conflicts = FALSE)
 ```
 
-![plot of chunk scatterplot4](figure/scatterplot4.png) 
+```
+## Warning: package 'lattice' was built under R version 3.1.1
+```
+
+```r
+xyplot(steps ~ interval | Weekday, aggregate(steps ~ interval + Weekday, newData, FUN = mean), layout=c(1,2), type ="l", group = Weekday, ylab="Average number of steps")
+```
+
+![plot of chunk scatterplot4 results:hide](figure/scatterplot4 results:hide.png) 
