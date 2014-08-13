@@ -161,7 +161,8 @@ library(lattice, quietly=TRUE, warn.conflicts = FALSE)
 ```
 
 ```r
-xyplot(steps ~ interval | Weekday, aggregate(steps ~ interval + Weekday, newData, FUN = mean), layout=c(1,2), type ="l", group = Weekday, ylab="Average number of steps")
+xyplot(steps ~ interval | Weekday, aggregate(steps ~ interval + Weekday, newData, FUN = mean), layout=c(1,2), type ="l",
+       group = Weekday, ylab="Average number of steps")
 ```
 
-![plot of chunk scatterplot4 results:hide](figure/scatterplot4 results:hide.png) 
+![plot of chunk scatterplot4](figure/scatterplot4.png) 

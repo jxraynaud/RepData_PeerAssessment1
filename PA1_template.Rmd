@@ -122,11 +122,12 @@ newData$Weekday <- as.factor(newData$Weekday)
 
 We subset two data frames from newData corresponding to weekends and weekdays aggregating the data by mean by interval and then we plot this two dataframes. 
 
-```{r scatterplot4 results:hide}
+```{r scatterplot4}
 
 library(lattice, quietly=TRUE, warn.conflicts = FALSE)
 
-xyplot(steps ~ interval | Weekday, aggregate(steps ~ interval + Weekday, newData, FUN = mean), layout=c(1,2), type ="l", group = Weekday, ylab="Average number of steps")
+xyplot(steps ~ interval | Weekday, aggregate(steps ~ interval + Weekday, newData, FUN = mean), layout=c(1,2), type ="l",
+       group = Weekday, ylab="Average number of steps")
 
 
 ```
